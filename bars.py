@@ -1,5 +1,5 @@
 import json
-from haversine import haversine
+from haversine import haversine as h
 import sys
 import os
 
@@ -11,22 +11,31 @@ def load_data(filepath):
 
 
 def get_biggest_bar(bars):
-    seats_count_dict = {bar_number: bars['features'][bar_number]['properties']['Attributes']['SeatsCount'] for
-                        bar_number in range(len(bars['features']))}
-    return bars['features'][max(seats_count_dict, key=seats_count_dict.get)]['properties']['Attributes']['Name']
+    seats_count_dict = \
+        {bar_num: bars[bar_num]['properties']['Attributes']['SeatsCount']
+         for bar_num in range(len(bars))}
+    max_bar_number = max(seats_count_dict, key=seats_count_dict.get)
+    return \
+        bars[max_bar_number]['properties']['Attributes']['Name']
 
 
 def get_smallest_bar(bars):
-    seats_count_dict = {bar_number: bars['features'][bar_number]['properties']['Attributes']['SeatsCount'] for
-                        bar_number in range(len(bars['features']))}
-    return bars['features'][min(seats_count_dict, key=seats_count_dict.get)]['properties']['Attributes']['Name']
+    seats_count_dict = \
+        {bar_num: bars[bar_num]['properties']['Attributes']['SeatsCount']
+         for bar_num in range(len(bars))}
+    min_bar_number = min(seats_count_dict, key=seats_count_dict.get)
+    return \
+        bars[min_bar_number]['properties']['Attributes']['Name']
 
 
 def get_closest_bar(bars, longitude, latitude):
-    my_coordinates = [longitude, latitude]
-    distances_dict = {bar_number: haversine(my_coordinates, bars['features'][bar_number]['geometry']['coordinates']) for
-                      bar_number in range(len(bars['features']))}
-    return bars['features'][min(distances_dict, key=distances_dict.get)]['properties']['Attributes']['Name']
+    my_coords = [longitude, latitude]
+    distances_dict = \
+        {bar_num: h(my_coords, bars[bar_num]['geometry']['coordinates'])
+         for bar_num in range(len(bars))}
+    closest_bar_number = min(distances_dict, key=distances_dict.get)
+    return \
+        bars[closest_bar_number]['properties']['Attributes']['Name']
 
 
 def print_result(bars):
@@ -44,7 +53,7 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         try:
             bars = load_data('bars.json')
-            print_result(bars)
+            print_result(bars['features'])
         except IndexError:
             print('ERROR: Set your longitude and latitude.')
         except ValueError:
