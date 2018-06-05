@@ -11,34 +11,19 @@ def load_data(filepath):
 
 
 def get_biggest_bar(bars):
-    seats_count_dict = \
-        {bar_num: bars[bar_num]['properties']['Attributes']['SeatsCount']
-         for bar_num in range(len(bars))}
-    max_bar_number = max(seats_count_dict, key=seats_count_dict.get)
-    return \
-        bars[max_bar_number]['properties']['Attributes']['Name']
+    return max(bars, key=lambda x: x['properties']['Attributes']['SeatsCount'])
 
 
 def get_smallest_bar(bars):
-    seats_count_dict = \
-        {bar_num: bars[bar_num]['properties']['Attributes']['SeatsCount']
-         for bar_num in range(len(bars))}
-    min_bar_number = min(seats_count_dict, key=seats_count_dict.get)
-    return \
-        bars[min_bar_number]['properties']['Attributes']['Name']
+    return min(bars, key=lambda x: x['properties']['Attributes']['SeatsCount'])
 
 
 def get_closest_bar(bars, longitude, latitude):
     my_coords = [longitude, latitude]
-    distances_dict = \
-        {bar_num: h(my_coords, bars[bar_num]['geometry']['coordinates'])
-         for bar_num in range(len(bars))}
-    closest_bar_number = min(distances_dict, key=distances_dict.get)
-    return \
-        bars[closest_bar_number]['properties']['Attributes']['Name']
+    return min(bars, key=lambda x: h(my_coords, x['geometry']['coordinates']))
 
 
-def print_result(bars):
+def get_bar(bars):
     if sys.argv[1] == 'get_biggest_bar':
         print(get_biggest_bar(bars))
     elif sys.argv[1] == 'get_smallest_bar':
@@ -53,7 +38,7 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         try:
             bars = load_data('bars.json')
-            print_result(bars['features'])
+            get_bar(bars['features'])
         except IndexError:
             print('ERROR: Set your longitude and latitude.')
         except ValueError:
