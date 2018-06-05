@@ -35,15 +35,12 @@ def get_bar(bars):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        try:
-            bars = load_data('bars.json')
-            print(get_bar(bars['features']))
-        except IndexError:
-            print('ERROR: Set your longitude and latitude.')
-        except ValueError:
-            print('ERROR: Check your coordinates type: float expected.')
-        except NameError:
-            print('ERROR: Unknown operation type.')
-    else:
-        print('ERROR: Operation expected.')
+    try:
+        bars = load_data('bars.json')
+        print(get_bar(bars['features']))
+    except IndexError:
+        print('ERROR: Set operation, your longitude and latitude (for get_closest_bar).')
+    except ValueError:
+        print('ERROR: Check your coordinates type: float expected.')
+    except NameError:
+        print('ERROR: Unknown operation type.')
