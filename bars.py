@@ -25,23 +25,25 @@ def get_closest_bar(bars, longitude, latitude):
 
 def get_bar(bars):
     if sys.argv[1] == 'get_biggest_bar':
-        print(get_biggest_bar(bars))
+        return get_biggest_bar(bars)
     elif sys.argv[1] == 'get_smallest_bar':
-        print(get_smallest_bar(bars))
+        return get_smallest_bar(bars)
     elif sys.argv[1] == 'get_closest_bar':
-        print(get_closest_bar(bars, float(sys.argv[2]), float(sys.argv[3])))
+        return get_closest_bar(bars, float(sys.argv[2]), float(sys.argv[3]))
     else:
-        print('ERROR: Unknown operation type.')
+        raise NameError
 
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         try:
             bars = load_data('bars.json')
-            get_bar(bars['features'])
+            print(get_bar(bars['features']))
         except IndexError:
             print('ERROR: Set your longitude and latitude.')
         except ValueError:
             print('ERROR: Check your coordinates type: float expected.')
+        except NameError:
+            print('ERROR: Unknown operation type.')
     else:
         print('ERROR: Operation expected.')
