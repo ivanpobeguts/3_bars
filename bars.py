@@ -1,7 +1,5 @@
 import json
 from haversine import haversine as h
-import sys
-import os
 import argparse
 
 
@@ -19,43 +17,44 @@ def get_smallest_bar(bars):
 
 
 def get_closest_bar(bars, longitude, latitude):
-    if not longitude or not latitude:
-        return None
     user_coords = [longitude, latitude]
     return min(bars, key=lambda x: h(user_coords, x['geometry']['coordinates']))
 
 
-def pretty_print_json(raw_json):
-    print(json.dumps(raw_json, indent=5, sort_keys=True, ensure_ascii=False))
-
-
 def print_bar(bar):
-    if not bar:
-        print('Set your longitude and latitude.')
-    else:
-        print('Bar:')
-        pretty_print_json(bar)
+    print('Name: ', bar['properties']['Attributes']['Name'])
+    print('Address: ', bar['properties']['Attributes']['Address'])
+    print('Area: ', bar['properties']['Attributes']['AdmArea'])
+    print('District: ', bar['properties']['Attributes']['District'])
+    print('Phone: ', bar['properties']['Attributes']['PublicPhone'][0]['PublicPhone'])
+    print('Seats count: ', bar['properties']['Attributes']['SeatsCount'])
+    print('Coordinates: ', bar['geometry']['coordinates'])
 
 
-FUNCTION_MAP = {'get_biggest_bar': get_biggest_bar,
-                'get_smallest_bar': get_smallest_bar,
-                'get_closest_bar': get_closest_bar}
-
-if __name__ == '__main__':
+def get_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('filepath', help='Path to json file')
-    parser.add_argument('command', choices=FUNCTION_MAP.keys())
+    parser.add_argument('command', choices=function_map.keys())
     parser.add_argument('longitude', type=float, nargs='?', const=None)
     parser.add_argument('latitude', type=float, nargs='?', const=None)
-    args = parser.parse_args()
+    return parser
+
+
+if __name__ == '__main__':
+    function_map = {'get_biggest_bar': get_biggest_bar,
+                    'get_smallest_bar': get_smallest_bar,
+                    'get_closest_bar': get_closest_bar}
+    args = get_parser().parse_args()
     try:
         bars = load_data(args.filepath)['features']
-        if args.command == 'get_closest_bar':
-            bar = FUNCTION_MAP[args.command](bars, args.longitude, args.latitude)
+        if args.command == 'get_closest_bar' and args.longitude and args.latitude:
+            bar = function_map[args.command](bars, args.longitude, args.latitude)
         else:
-            bar = FUNCTION_MAP[args.command](bars)
+            bar = function_map[args.command](bars)
         print_bar(bar)
     except json.decoder.JSONDecodeError:
-        print('Файл не в формате json.')
+        print('File is not json.')
     except FileNotFoundError:
-        print('Файл не найден.')
+        print('File not found.')
+    except TypeError:
+        print('Set your longitude and latitude.')

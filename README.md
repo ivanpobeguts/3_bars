@@ -26,39 +26,13 @@ $ pip install -r requirements.txt
 
 $ python bars.py bars.json get_biggest_bar
 
-Bar:
-{
-     "geometry": {
-          "coordinates": [
-               37.638228501070095,
-               55.70111462948684
-          ],
-          "type": "Point"
-     },
-     "properties": {
-          "Attributes": {
-               "Address": "Автозаводская улица, дом 23, строение 1",
-               "AdmArea": "Южный административный округ",
-               "District": "Даниловский район",
-               "IsNetObject": "нет",
-               "Name": "Спорт бар «Красная машина»",
-               "OperatingCompany": null,
-               "PublicPhone": [
-                    {
-                         "PublicPhone": "(905) 795-15-84"
-                    }
-               ],
-               "SeatsCount": 450,
-               "SocialPrivileges": "нет",
-               "global_id": 169375059
-          },
-          "DatasetId": 1796,
-          "ReleaseNumber": 2,
-          "RowId": "fbe6c340-4707-4d74-b7ca-2b84a23bf3a8",
-          "VersionNumber": 2
-     },
-     "type": "Feature"
-}
+Name:  Спорт бар «Красная машина»
+Address:  Автозаводская улица, дом 23, строение 1
+Area:  Южный административный округ
+District:  Даниловский район
+Phone:  (905) 795-15-84
+Seats count:  450
+Coordinates:  [37.638228501070095, 55.70111462948684]
 
 ```
 
@@ -66,39 +40,13 @@ Bar:
 
 $ python bars.py bars.json get_smallest_bar
 
-Bar:
-{
-     "geometry": {
-          "coordinates": [
-               37.35805920566864,
-               55.84614475898795
-          ],
-          "type": "Point"
-     },
-     "properties": {
-          "Attributes": {
-               "Address": "Дубравная улица, дом 34/29",
-               "AdmArea": "Северо-Западный административный округ",
-               "District": "район Митино",
-               "IsNetObject": "нет",
-               "Name": "БАР. СОКИ",
-               "OperatingCompany": null,
-               "PublicPhone": [
-                    {
-                         "PublicPhone": "(495) 258-94-19"
-                    }
-               ],
-               "SeatsCount": 0,
-               "SocialPrivileges": "нет",
-               "global_id": 20675518
-          },
-          "DatasetId": 1796,
-          "ReleaseNumber": 2,
-          "RowId": "17adc22c-5c41-4e4b-872f-815b521f2b53",
-          "VersionNumber": 2
-     },
-     "type": "Feature"
-}
+Name:  БАР. СОКИ
+Address:  Дубравная улица, дом 34/29
+Area:  Северо-Западный административный округ
+District:  район Митино
+Phone:  (495) 258-94-19
+Seats count:  0
+Coordinates:  [37.35805920566864, 55.84614475898795]
 
 ```
 
@@ -106,39 +54,13 @@ Bar:
 
 $ python bars.py bars.json get_closest_bar 37.648057 55.760235
 
-Bar:
-{
-     "geometry": {
-          "coordinates": [
-               37.647149354848025,
-               55.76055272220522
-          ],
-          "type": "Point"
-     },
-     "properties": {
-          "Attributes": {
-               "Address": "Чистопрудный бульвар, дом 23, строение 2",
-               "AdmArea": "Центральный административный округ",
-               "District": "Басманный район",
-               "IsNetObject": "нет",
-               "Name": "Alchemic ночной клуб",
-               "OperatingCompany": null,
-               "PublicPhone": [
-                    {
-                         "PublicPhone": "(903) 724-81-08"
-                    }
-               ],
-               "SeatsCount": 80,
-               "SocialPrivileges": "нет",
-               "global_id": 169373538
-          },
-          "DatasetId": 1796,
-          "ReleaseNumber": 2,
-          "RowId": "aaaa9e46-9b0e-4686-9fb4-891a0accd56f",
-          "VersionNumber": 2
-     },
-     "type": "Feature"
-}
+Name:  Alchemic ночной клуб
+Address:  Чистопрудный бульвар, дом 23, строение 2
+Area:  Центральный административный округ
+District:  Басманный район
+Phone:  (903) 724-81-08
+Seats count:  80
+Coordinates:  [37.647149354848025, 55.76055272220522]
 
 ```
 
