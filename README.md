@@ -24,7 +24,7 @@ $ pip install -r requirements.txt
 
 ```bash
 
-$ python bars.py get_biggest_bar
+$ python bars.py bars.json get_biggest_bar
 
 Bar:
 {
@@ -64,7 +64,7 @@ Bar:
 
 ```bash
 
-$ python bars.py get_smallest_bar
+$ python bars.py bars.json get_smallest_bar
 
 Bar:
 {
@@ -104,7 +104,7 @@ Bar:
 
 ```bash
 
-$ python bars.py get_closest_bar 37.648057 55.760235
+$ python bars.py bars.json get_closest_bar 37.648057 55.760235
 
 Bar:
 {
