@@ -41,25 +41,25 @@ def get_parser():
     return parser
 
 
-def get_bar_by_command():
-    command_map = {'get_biggest_bar': get_biggest_bar,
-                   'get_smallest_bar': get_smallest_bar,
-                   'get_closest_bar': get_closest_bar}
-    args = get_parser().parse_args()
-    bars = load_data(args.filepath)['features']
-    if args.command == 'get_closest_bar' and args.longitude and args.latitude:
-        return command_map[args.command](bars, args.longitude, args.latitude)
-    else:
-        return command_map[args.command](bars)
+def get_command_map():
+    command_map = {
+        'get_biggest_bar': get_biggest_bar,
+        'get_smallest_bar': get_smallest_bar,
+        'get_closest_bar': get_closest_bar,
+    }
+    return command_map
 
 
 if __name__ == '__main__':
     try:
-        bar = get_bar_by_command()
+        args = get_parser().parse_args()
+        bars = load_data(args.filepath)['features']
+        if args.command == 'get_closest_bar' and args.longitude and args.latitude:
+            bar = get_command_map()[args.command](bars, args.longitude, args.latitude)
+        else:
+            bar = get_command_map()[args.command](bars)
         print_bar(bar)
     except json.decoder.JSONDecodeError:
         print('File is not json.')
     except FileNotFoundError:
         print('File not found.')
-    except TypeError:
-        print('Set your longitude and latitude.')
