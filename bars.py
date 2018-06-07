@@ -35,7 +35,7 @@ def get_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('filepath', help='Path to json file')
     parser.add_argument(
-        'command', choices=['get_biggest_bar', 'get_smallest_bar', 'get_closest_bar'])
+        'command', choices=get_command_map().keys())
     parser.add_argument('longitude', type=float, nargs='?', const=None)
     parser.add_argument('latitude', type=float, nargs='?', const=None)
     return parser
